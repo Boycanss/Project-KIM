@@ -1,0 +1,8 @@
+1. USER SESSION ~~~~~
+2. WHATSAPP ~~~~~~
+3. BELANJA ~~~~~~
+5. HALAMAN PER DESA~~~~~~
+6. SEARCH~~~~~~~
+
+4. HALAMAN ADMIN (CRUD)
+7. request

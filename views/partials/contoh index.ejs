@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
+
+  <!-- my CSS -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!-- LINK FONT DARI FONT AWESOME -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kelompok Informasi Masyarakat</title>
+</head>
+
+
+<body id="home" class="scrollspy">
+
+  <!-- Ini untuk navbar -->
+  <div class="navbar-fixed">
+    <nav class="indigo">
+      <div class="container">
+        <div class="nav-wrapper">
+          <a href="/" class="brand-logo">KIM<i class="fab fa-redhat medium"></i></a>
+          <a href="/" data-target="mobile-nav" class="sidenav-trigger"></a>
+
+          <div class="whatsapp">
+            <ul class="right hide-on-med-and-down">
+              <li><a class="white-text" href=""><i class="fab fa-whatsapp small green-text text-lighten-1"></i></a></li></ul>
+            </div>
+
+            <ul class="right hide-on-med-and-down">
+              <li><a href="/"><i class="material-icons right">search</i></a></li>
+              <li><a href="#artikel">Artikel</a></li>
+              <li><a href="#Kumpulanberita">Kumpulan Berita </a></li>
+              <li><a href="#about">Tentang Kami</a></li>
+              <li><a href="#Jualbeli">Jual Beli Online</a></li>
+              <li><a href="#clients">Client</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+
+    <!-- disini untuk membuat gambar slider (slideshow) -->
+    <div class="slider">
+      <ul class="slides"> 
+        <li>
+          <img src="/images/portfolio/14.png"> 
+          <div class="caption center-align">
+            <h1 class="light grey-text text-lighten-3">HOME</h1>
+            <h4 class="light grey-text text-lighten-3">Kelompok Informasi Masyarakat Desa</h4>
+            <h5 class="light grey-text text-lighten-3">KOTA BATU</h5>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+
+    <!-- Disini untuk membuat kumpulan artikel -->
+
+
+    <section id="artikel" class="Artikel grey lighten-4 scrollspy">
+      <div class="container">
+       <div>       
+        <% if (postingan) { %>
+        <% for(var i = 0; i < postingan.length; i++) { %>
+        <% if (i%2 == 0) { %>
+          <div class="row">
+          <div class="col m6">
+            <h4 ><a href="">Artikel dari <%= postingan[i].desa %></a></h4>
+            <!-- <h1>POSTINGAN DARI DESA </h1><h1><%= postingan[i].desa %></h1> -->
+            <!-- <h4><%= postingan[i].judul %></h4> -->
+            <p><%= postingan[i].artikel%></p>
+            <!-- <div><img src="/images/uploaded/<%=postingan[i].foto%>"></div> -->
+            <h3><%= postingan[i].postingan %></h3>
+            <br> 
+          </div>
+
+          <div class="col s12 m6">
+            <div class="card">
+              <div class="card-image">
+                <img class="activator" src="/images/uploaded/<%=postingan[i].foto%>">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">more_vert</i></span>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">close</i></span>
+                <p><%= postingan[i].artikel%></p>
+              </div>
+            </div>  
+          </div>
+        </div>
+      <% } else { %>
+         <div class="row">
+          <div class="col m6">
+            <div class="card">
+              <div class="card-image">
+                <img class="activator" src="/images/uploaded/<%=postingan[i].foto%>">
+              </div>
+              <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">more_vert</i></span>
+              </div>
+              <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">close</i></span>
+                <p><%= postingan[i].artikel%></p>
+              </div>
+            </div>
+            <br> 
+          </div>
+          <div class="col s12 m6">
+            <h4 ><a href="">Artikel dari <%= postingan[i].desa %></a></h4>
+            <!-- <h1>POSTINGAN DARI DESA </h1><h1><%= postingan[i].desa %></h1> -->
+            <!-- <h4><%= postingan[i].judul %></h4> -->
+            <p><%= postingan[i].artikel%></p>
+            <!-- <div><img src="/images/uploaded/<%=postingan[i].foto%>"></div> -->
+            <h3><%= postingan[i].postingan %></h3>
+              
+          </div>
+        </div>
+   <% } %>
+       <% } %>
+        <% } %>
+      </div> 
+    </section>
+
+    <!-- disini untuk membuat tab untuk kumpulan berita -->
+    <section id="Kumpulanberita" class="kumpulanberita grey lighten-4 scrollspy">
+      <div class="container">
+        <div class="row">
+          <h3 class="center light grey-text text-darken-4">Kumpulan Berita Terdahulu</h3>
+          <h6>Nantik disini isinya sedikit kata pengantar dari kumpulan artiker-artikel sebelumnya. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h6><br>
+
+          <!-- ini untuk tab Kecamatan -->
+          <div class="grey lighten-4">
+            <div class="row ">
+              <ul class="tabs tabs-fixed-width tab-demo grey lighten-4">
+                <li class="tab"><a class="active" href="#test1">Kecamatan Batu</a></li>
+                <li class="tab"><a href="#test2" ">Kecamatan Bumiaji</a></li>
+                <li class="tab"><a href="#test3">Kecamatan Junrejo</a></li>
+              </ul>
+               <!--ini kolom untuk kecamatan 1 -->
+
+               <% if (akun) { %>
+               <% or (var a = 0 ; a < akun.length; i++) { %>
+               <% if (akun[a].kecamatan == "Batu") { %>
+                <div id="test1" class="col s12"><p>
+                 <div class="col s12 m3">
+                  <div class="card small">
+                    <div class="card-image">
+                     <img src="images/portfolio/1.png">
+                   </div>
+                   <div class="card-content">
+                     <p><%= akun[a].namadesa %></p>
+                   </div>
+                   <div class="card-action">
+                    <a href="#">KUNJUNGI<i class="material-icons right">arrow_forward</i></a>
+                  </div>
+                </div> 
+              </div>
+              </div>
+             <% } %>
+             <% if (akun[a].kecamatan == "Bumiaji") { %>
+                <div id="test2" class="col s12"><p>
+                <div class="col s12 m3">
+                  <div class="card small">
+                    <div class="card-image">
+                     <img src="images/portfolio/1.png">
+                   </div>
+                   <div class="card-content">
+                     <p><%= akun[a].namadesa %></p>
+                   </div>
+                   <div class="card-action">
+                    <a href="#">KUNJUNGI<i class="material-icons right">arrow_forward</i></a>
+                  </div>
+                </div> 
+              </div>
+              </div>
+           <% } %>
+           <% else { %>
+            <div id="test3" class="col s12"><p>
+                <div class="col s12 m3">
+                  <div class="card small">
+                    <div class="card-image">
+                     <img src="images/portfolio/1.png">
+                   </div>
+                   <div class="card-content">
+                     <p><%= akun[a].namadesa %></p>
+                   </div>
+                   <div class="card-action">
+                    <a href="#">KUNJUNGI<i class="material-icons right">arrow_forward</i></a>
+                  </div>
+                </div> 
+              </div>
+              </div>
+         <% } %>
+            <%  } %>
+             <% } %>
+
+            <!-- bagian TENTANG KAMI -->
+            <section id="about" class="about scrollspy">
+              <div class="container">
+                <div class="row">
+                  <h3 class="center light grey-text text-darken-4" >Visi dan Misi Desa Tulungrejo </h3>
+                  <br>
+                  <div class="col m7">
+                    <h5>VISI</h5>
+                    <p>Bersama masyarakat ingin menjadikan Desa Tulungrejo menjadi desa yang unggul sebagaimana unggul dalam sistemn pemerintahaan, unggul dalam sistem perencanaan serta unggul dalam pelaksanaan segala segi bidang pembangunan demi kesejahteraan masyarakat. </p>
+                  </div>
+
+                  <div class="col m5">
+                    <h5>MISI</h5>
+                    <p>1. UNGGUL DALAM PEMERINTAHAN <br>2. UNGGUL DALAM BUDAYA <br>3. UNGGUL DALAM PERTANIAN DAN AGROWISATA <br>4. UNGGUL DALAM KEBERSAMAAN MASYARAKAT <br>5. UNGGUL DALAM KEAMANAN <br>6. UNGGUL DALAM PERSATUAN</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+
+            <!-- Ini untuk bagian Jual Beli Online -->
+            <section id="Jualbeli" class="jualbeli grey lighten-4 scrollspy">
+              <div class="container">
+                <div class="row">
+                  <h3 class="center light grey-text text-darken-4">Produk Unggulan Desa Tulungrejo</h3>
+
+                  <div class="col s12 m3">
+                    <div class="card medium">
+                      <div class="card-image">
+                        <img src="images/slider/apel.png" class="responsive-img materialboxed">
+                      </div>
+                      <div class="card-content">
+                        <h5 class="card-title">Pertanian</h5>
+                        <p>Hasil pertanian Desa Tulungrejo.</p>
+                      </div>
+                      <div class="card-action">
+                        <a href="#">Beli<i class="material-icons left">shopping_cart</i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col s12 m3">
+                    <div class="card medium">
+                      <div class="card-image">
+                        <img src="images/slider/patung.png" class="responsive-img materialboxed">
+                      </div>
+                      <div class="card-content">
+                        <h5 class="card-title">Kerajinan</h5>
+                        <p>Hasil kerajinan patung Desa Tulungrejo.</p>
+                      </div>
+                      <div class="card-action">
+                        <a href="#">Beli<i class="material-icons left">shopping_cart</i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col s12 m3">
+                    <div class="card medium">
+                      <div class="card-image">
+                        <img src="images/slider/jamur.png" class="responsive-img materialboxed">
+                      </div>
+                      <div class="card-content">
+                        <h5 class="card-title">Kuliner</h5>
+                        <p>Keripik jamur Desa Tulungrejo.</p>
+                      </div>
+                      <div class="card-action">
+                        <a href="#">Beli<i class="material-icons left">shopping_cart</i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col s12 m3">
+                    <div class="card medium">
+                      <div class="card-image">
+                        <img src="images/slider/susu.png" class="responsive-img materialboxed">
+                      </div>
+                      <div class="card-content">
+                        <h5 class="card-title">Susu</h5>
+                        <p>Produk susu Desa Tulungrejo.</p>
+                      </div>
+                      <div class="card-action">
+                        <a href="#">Beli<i class="material-icons left">shopping_cart</i></a>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </section>
+
+
+            <!-- bagian our Clients -->
+            <div id="clients" class="parallax-container scrollspy">
+              <div class="parallax"><img src="images/slider/4.png"></div>
+
+              <div class="container clients">
+                <h3 class="center light white-text">Client</h3>
+                <div class="row">
+                  <div class="col m4 s12 center">
+                    <img src="images/clients/gojek.png">
+                  </div>
+                  <div class="col m4 s12 center">
+                    <img src="images/clients/tokopedia.png">
+                  </div>
+                  <div class="col m4 s12 center">
+                    <img src="images/clients/traveloka.png">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <!-- ini untuk floating action button menulis artikel -->
+            <div class="fixed-action-btn">
+              <a class="btn-floating btn-large indigo darken-1 small" href="/posting">
+                <i class="large material-icons">mode_edit</i>
+              </a>
+            </div>  
+
+            <!-- ini untuk footer -->
+            <footer class="page-footer indigo darken-2">
+              <div class="container">
+                <div class="row">
+                  <div class="col l6 s12">
+                    <h5 class="white-text">Alamat Kantor</h5> <br>
+                    <p class="grey-text text-lighten-4">Kelompok Informasi Masyarakat <br>Jl. Panglima Sudirman No.507, Pesanggrahan, Kecamatan Batu, <br>Jawa Timur - 65313</p>
+                  </div>
+                  <div class="col l3 s12">
+                    <h5 class="white-text">Kontak</h5> <br>
+                    <p><i class="fas fa-phone"></i> (0341) 3061892 <br><i class="far fa-envelope"></i>  kimwarkop4@gmail.com</p>
+                  </div>
+
+                  <div class="col l3 s12">
+                    <h5 class="white-text">Sosial Media</h5> <br>
+                    <ul>
+                      <div class="col s12 m2">
+                        <li><a class="white-text" href="https://www.instagram.com/kim_tulungrejo/"><i class="fab fa-instagram small"></i></a></li></div>
+                        <div class="col s12 m2">
+                          <li><a class="white-text" href="https://www.facebook.com/kimtulungrejo.kwb.1"><i class="fab fa-facebook-square small"></i></a></li></div>
+                          <div class="col s12 m2">
+                            <li><a class="white-text" href="https://twitter.com/KimAnjasmoro"><i class="fab fa-twitter small"></i></a></li></div>
+                            <div class="col s12 m2">
+                              <li><a class="white-text" href="https://plus.google.com/+KIMDesaTulungrejoKotaBatu"><i class="fab fa-google-plus-g small"></i></a></li></div> <br>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="footer-copyright">
+                        <div class="container"><i class="material-icons tiny">copyright</i> 2019. Allright Reserved. Design by TIM PKL.<a class="grey-text text-lighten-4 right" href="https://kim-warkop.blogspot.com/">Blog</a>
+
+                        </div>
+                      </div>
+                    </footer>
+
+
+                    <!--JavaScript at end of body for optimized loading-->
+                    <script type="text/javascript" src="/js/materialize.min.js"></script>
+                    <script>
+
+                      M.AutoInit();
+
+                      const sideNav = document.querySelectorAll('.sidenav');
+                      M.Sidenav.init(sideNav);
+
+                      const slider = document.querySelectorAll('.slider');
+                      M.Slider.init(slider, {
+                        indicators:false,
+                        interval:7000,
+                        duration:500, 
+                        height:480 
+                      });
+                      const parallax= document.querySelectorAll('.parallax');
+                      M.Parallax.init(parallax); 
+
+                      const materialbox= document.querySelectorAll('.materialboxed');
+                      M.Materialbox.init(materialbox);
+
+                      const scroll = document.querySelectorAll('.scrollspy');
+                      M.ScrollSpy.init(scroll, {
+                        scrollOffset: 50
+                      });
+
+
+
+                    </script>
+                  </body>
+                  </html>

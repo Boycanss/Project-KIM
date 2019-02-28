@@ -1,0 +1,45 @@
+{
+  "name": "Proj",
+  "version": "0.0.0",
+  "server": false,
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "",
+    "build": ""
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.13.1",
+    "cheerio": "^1.0.0-rc.2",
+    "client-sessions": "^0.8.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.3.5",
+    "csurf": "^1.9.0",
+    "ejs": "^2.3.2",
+    "express": "^4.13.0",
+    "express-fileupload": "^1.1.1-alpha.2",
+    "express-useragent": "^1.0.12",
+    "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
+    "jsdom": "^13.2.0",
+    "morgan": "^1.6.0",
+    "mysql": "^2.7.0",
+    "node-notifier": "^5.4.0",
+    "nodemon": "^1.17.1",
+    "open": "0.0.5",
+    "passport": "^0.2.2",
+    "passport-local": "^1.0.0",
+    "striptags": "^3.1.1",
+    "then-busboy": "^4.2.0",
+    "turbo360": "latest",
+    "vertex360": "latest"
+  },
+  "devDependencies": {
+    "express": "latest"
+  },
+  "deploy": [
+    "."
+  ],
+  "format": "vertex"
+}
