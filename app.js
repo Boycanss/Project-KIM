@@ -5,9 +5,10 @@ const app = vertex.express() // initialize app
 const express = require("express")
 const login = require('./routes/index');
 const bodyParser = require('body-parser');
-var morgan = require('morgan');
+const morgan = require('morgan');
 const sessions     = require('client-sessions');
-var flash = require('connect-flash');
+const flash = require('connect-flash');
+const passport = require('passport');
 
 
 /*  

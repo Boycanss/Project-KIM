@@ -88,9 +88,8 @@
             <h4 >Artikel dari <%= postingan[i].desa %></h4>
             <!-- <h1>POSTINGAN DARI DESA </h1><h1><%= postingan[i].desa %></h1> -->
             <!-- <h4><%= postingan[i].judul %></h4> -->
-            <p><%= postingan[i].artikel%></p>
             <!-- <div><img src="/images/uploaded/<%=postingan[i].foto%>"></div> -->
-            <h5><%= postingan[i].postingan %></h5>
+            <h5 style="text-align: justify;"><%= postingan[i].postingan %></h5>
             <br> 
           </div>
 
@@ -103,10 +102,10 @@
                 <span class="card-title activator grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">more_vert</i></span>
               </div>
               <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">close</i></span>
-                <p><%= postingan[i].artikel%></p>
+                <span class="card-title grey-text text-darken-4"><%= postingan[i].tentang %><i class="material-icons right">close</i></span>
               </div>
-            </div>  
+            </div>
+            <p>Diposting pada <%= postingan[i].tanggal.toLocaleDateString()%></p>   
           </div>
         </div>
         <% } else { %>

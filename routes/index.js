@@ -18,6 +18,7 @@ const open = require('open');
 
 //db
 var connection = mysql.createConnection({
+	multipleStatements : true,
 	host     : 'localhost',
 	user     : 'root',
 	password : '',
@@ -32,7 +33,13 @@ connection.connect(function(err){
 });
 
 //coba
-
+router.get('/coba', (req,res)=>{
+	connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4;SELECT * FROM akundesa', (err,results)=>{
+		// console.log(results[0]);
+		// console.log(results[1]);
+		res.render('auth.ejs', {postingan:results[0], akun:results[1]});
+	})
+})
 
 
 /*  This is the home route. It renders the index.mustache page from the views directory.
@@ -53,11 +60,46 @@ connection.connect(function(err){
 	// 		}	
 	// 	});
 	// })
-router.get('/', function(req, res) {       
-connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc', (err, rows, fs) => {
-          res.render('index.ejs', {postingan:rows})         
+// function qInformasi(){
+// 	return new Promise(function(resolve, reject){
+// 	connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4', (err,results)=>{
+// 		if (!err) {
+// 			resolve(results)
+// 		}
+// 	})
+// })
+// }
+
+// function qAkun(){
+// 	return new Promise(function(resolve, reject){
+// 	connection.query('SELECT * FROM akundesa', (err,results2)=>{
+// 		if (!err) {
+// 			resolve(results2)
+// 		}
+// 	})
+// })
+// }
+// router.get('/', (req,res)=>{
+// 	connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4;SELECT * FROM akundesa', (err,results)=>{
+// 		// console.log(results[0]);
+// 		// console.log(results[1]);
+// 		res.render('index.ejs', {postingan:results[0], akun:results[1]});
+// 	})
+// })
+router.get('/', function(req, res) { 
+var message="";      
+connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4;SELECT * FROM akundesa', (err, rows, fs) => {
+          res.render('index.ejs', {postingan:rows[0], akun:rows[1], message:message})         
        });
-       });   
+       }); 
+
+	router.get('/halaman/:num', (req,res)=>{
+		var number = req.params.num;
+		var page = (number-1)*4;
+		connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4 OFFSET ?;SELECT * FROM akundesa',[page], (err, rows, fs) => {
+			res.render('halaman.ejs', {postingan:rows[0], akun:rows[1]})         
+		});
+	})
 
 // router.get('/', (req, res) => {
 // 		connection.query('SELECT * FROM informasi ', (err, rows, fs) => {
@@ -102,7 +144,7 @@ router.get('/posting', (req,res)=>{
 			var message = "";
 			res.render('login.ejs', {message:message});}
 
-	})
+		})
 
 })
 
@@ -134,38 +176,38 @@ router.post('/beli', (req,res)=>{
 	var pesan = "Saya ingin memesan \n"+ pembelian;
 	console.log(pesan);
 	// app.get('/:phonenum/:message', (req, res) => {
-    var source = req.header('user-agent');
-    var ua = useragent.parse(source);
-    var phonenum = '+6282160011203';
-
-    if (ua.isDesktop) {
-        res.status(308).redirect(`https://web.whatsapp.com/send?phone=+${phonenum}&text=${pesan}`);
-    } else if (ua.isMobile) {
-        res.status(308).redirect(`whatsapp://send?phone=+${phonenum}&text=${pesan}`);
-    } else {
-        res.status(400).json({status: "error"});
-    }
-});
-
-router.get('/whatsapp', (req, res) => {
 		var source = req.header('user-agent');
 		var ua = useragent.parse(source);
 		var phonenum = '+6282160011203';
 
 		if (ua.isDesktop) {
-			res.status(308).redirect(`https://web.whatsapp.com/send?phone=+${phonenum}`);
-		} else if (ua.issMobile) {
-			res.status(308).redirect(`whatsapp://send?phone=+${phonenum}`);
+			res.status(308).redirect(`https://web.whatsapp.com/send?phone=+${phonenum}&text=${pesan}`);
+		} else if (ua.isMobile) {
+			res.status(308).redirect(`whatsapp://send?phone=+${phonenum}&text=${pesan}`);
 		} else {
 			res.status(400).json({status: "error"});
 		}
-	})
+	});
+
+router.get('/whatsapp', (req, res) => {
+	var source = req.header('user-agent');
+	var ua = useragent.parse(source);
+	var phonenum = '+6282160011203';
+
+	if (ua.isDesktop) {
+		res.status(308).redirect(`https://web.whatsapp.com/send?phone=+${phonenum}`);
+	} else if (ua.issMobile) {
+		res.status(308).redirect(`whatsapp://send?phone=+${phonenum}`);
+	} else {
+		res.status(400).json({status: "error"});
+	}
+})
 
 
 router.get('/jualbeli',(req,res)=>{
 	connection.query('SELECT * FROM jualbeli', function(req,rows){
-	console.log(rows);
-	res.render('jualbeli.ejs', {jual:rows});	
+		console.log(rows);
+		res.render('jualbeli.ejs', {jual:rows});	
 	})
 	
 })
@@ -193,27 +235,30 @@ function posting(req,res, files){
 		var artikel = fields.artikel;
 		var oldpath = files.filetoupload.path;
 		var newpath = '../Proj/public/images/uploaded/' + fname;
+		var dt = new Date();
+		var tanggal = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
 		console.log("FILE AKAN DI UPLOAD :")
 		console.log(fname);
 		console.log(oldpath);
-	console.log("Judul : "+judul);
-	console.log("Desa : "+desa);
-	console.log("Isi : "+artikel);
-	connection.query("INSERT INTO informasi (desa, judul, tentang, postingan, foto) VALUES ('"+desa+"','"+judul+"','"+tentang+"','"+artikel+"','"+fname+"')", function(err, fields, files){
-		console.log("file sedang diupload.....");
-		fs.rename(oldpath, newpath, function(err){
-			if (err) {throw err;}
-			console.log("file sudah diupload");
-			res.redirect('/')
-		})
-	}
-	)}
-	)}
+		console.log("Judul : "+judul);
+		console.log("Desa : "+desa);
+		console.log("Isi : "+artikel);
+		connection.query("INSERT INTO request (desa, judul, tentang, postingan, foto, tanggal) VALUES ('"+desa+"','"+judul+"','"+tentang+"','"+artikel+"','"+fname+"','"+tanggal+"')", function(err, fields, files){
+			console.log("file sedang diupload.....");
+			fs.rename(oldpath, newpath, function(err){
+				if (err) {throw err;}
+				console.log("file sudah diupload");
+				var message="POSTINGAN SUDAH DIMINTA UNTUK DITERBITKAN"
+				res.redirect('/');
+			})
+		}
+		)}
+		)}
 
 	router.get('/logout', (req,res)=>{
 		connection.query('UPDATE akundesa SET status = ""')
 		res.redirect('/');
-		});
+	});
 
 	router.post('/login', loggedin)
 //function untuk login
@@ -251,7 +296,50 @@ function loggedin(req,res){
 	});
 }
 
+//<---------------- //ADMIN ----------------------------->
 
+router.get('/admin', (req,res)=>{
+	var message = "";
+	res.render('loginAdmin.ejs', {message:message})
+})
+
+router.post('/loginAdmin', (req,res)=>{
+	var username = req.body.username;
+	var password = req.body.password;
+	if (username == "adminkim1010" && password == "kimadmin0101") {
+		connection.query('SELECT * FROM request',(err,rows)=>{
+			res.render('admin.ejs', {req:rows})
+		})
+	} else {
+		var message = "password atau username salah";
+		res.render('loginAdmin.ejs', {message:message})
+	}
+})
+
+router.get('/accept/:reqid', (req,res)=>{
+	var reqid= req.params.reqid;
+	connection.query("INSERT INTO informasi (desa, judul, tentang, postingan, foto, tanggal) SELECT desa, judul, tentang, postingan, foto, tanggal FROM request WHERE reqid = ?; DELETE FROM request WHERE reqid= ?;", [reqid,reqid], (err, rows)=>{
+		if (err) {throw err} 
+			else {
+				console.log("Postingan sudah diterbitkan")
+				connection.query('SELECT * FROM request',(err,rows)=>{
+					res.render('admin.ejs', {req:rows})
+				})
+			}
+	})
+})
+router.get('/reject/:reqid', (req,res)=>{
+	var reqid= req.params.reqid;
+	connection.query("DELETE FROM request WHERE reqid= ?", [reqid], (err, rows)=>{
+		if (err) {throw err} 
+			else {
+				console.log("Postingan sudah dibatalkan")
+				connection.query('SELECT * FROM request',(err,rows)=>{
+					res.render('admin.ejs', {req:rows})
+				})	
+			}
+	})
+})
 
 
 

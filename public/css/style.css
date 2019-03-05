@@ -13,3 +13,30 @@
 section {
 	padding: 20px 0;
 }
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 16px;
+}
+
+a:hover {
+  background-color: #3f51b5;
+  color: white;
+}
+
+.previous {
+  background-color: #4CAF50;
+  color: black;
+  float: left!important;
+}
+
+.next {
+  background-color: #4CAF50;
+  color: white;
+  float: right!important;
+}
+
+.round {
+  border-radius: 50%;
+}
