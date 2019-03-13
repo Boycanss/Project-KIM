@@ -6,7 +6,7 @@ const express = require("express")
 const login = require('./routes/index');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const sessions     = require('client-sessions');
+const session     = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 

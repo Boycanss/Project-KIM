@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+
+  <!-- my CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- LINK FONT DARI FONT AWESOME -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jual Beli</title>
+
+
+</head>
+
+<body id="home" class="scrollspy">
+
+ <!-- Ini untuk navbar -->
+ <div class="navbar-fixed scrollspy" id="navbar">
+  <nav class="indigo ">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/" class="brand-logo"><strong>| KIM</strong><i class="fab fa-asymmetrik medium"></i></a>
+        <a href="#navbar" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i> </a> 
+
+        <ul class="right hide-on-med-and-down">
+
+          <li><a href="/#artikel">Artikel</a></li>
+          <li><a href="/#Kumpulanberita">Kumpulan Berita </a></li>
+          <li><a href="/#about">Tentang Kami</a></li>
+          <li><a href="#Jualbeli">Produk Desa</a></li>
+          <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
+          <li> <form action="/cari" method="POST">
+           <li><a href="#cari" class="fa fa-search"></a></li>
+           <li> <input type="search" class="fa fa-search" name="cari" id="cari" style="color: white"> </li>
+         </form>
+       </li>
+     </ul>
+   </div>
+ </div>
+</nav>
+</div>
+
+<ul class="sidenav" id="mobile-nav">
+  <li><div class="user-view">
+    <div class="background">
+      <img src="/images/portfolio/14.png">
+    </div>
+    <a href="#user"><img class="circle" src="/images/portfolio/3.png"></a>
+    <a href="#name"><span class="white-text name">Kelompok Informasi Masyarakat</span></a>
+    <a href="#email"><span class="white-text email">kimwarkop4@gmail.com</span></a>
+  </div></li>
+  <li><a href="#artikel">Artikel</a></li>
+  <li><a href="#Kumpulanberita">Kumpulan Berita </a></li>
+  <li><a href="#about">Tentang Kami</a></li>
+  <li><a href="#Jualbeli">Produk Desa</a></li>
+  <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
+  <li><a href="#cari"><i class="material-icons">search</i></a></li>
+</ul>
+
+
+<!-- ------------------------------------ -->
+<h3>Rincian Pembelian <%= desa %></h3>
+<div class="container">
+  <div class="row">
+    <p></p>
+  </div>
+  <% for(var i = 0; i <=7; i++) { %> 
+  <label>Sumber barang : <%= rin[i].sumber %> </label>
+  <p><%= rin[i].namabrg %></p>
+  <p><%= rin[i].hargabrg %></p>
+  <p><%= rin[i].foto %></p>
+  <p><%= rin[i].kontak %></p>
+  <%  } %>  
+</div>
+
+
+
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+
+  M.AutoInit();
+
+  const materialbox= document.querySelectorAll('.materialboxed');
+  M.Materialbox.init(materialbox);
+
+  const scroll = document.querySelectorAll('.scrollspy');
+  M.ScrollSpy.init(scroll, {
+    scrollOffset: 50
+  });
+
+
+</script>
+
+</body>
+</html>
+

@@ -59,7 +59,7 @@
   <li><a href="#artikel">Artikel</a></li>
   <li><a href="#Kumpulanberita">Kumpulan Berita </a></li>
   <li><a href="#about">Tentang Kami</a></li>
-  <li><a href="#Jualbeli">Jual Beli Online</a></li>
+  <li><a href="#Jualbeli">Produk Desa</a></li>
   <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
   <li><a href="#cari"><i class="material-icons">search</i></a></li>
 </ul>
@@ -92,7 +92,7 @@
    </div>
  </div>
 
- <div class="container">
+ <div class="container" style="border-bottom: 1px solid blue;">
    <div>       
     <% if (postingan) { %>
     <% for(var i = 0; i < postingan.length; i++) { %>
@@ -103,7 +103,7 @@
         <p><%= postingan[i].tentang%></p>
         <div class="card">
           <div class="card-image">
-            <img class="activator" src="/images/uploaded/<%=postingan[i].foto%>">
+            <img class="activator" id="cardpost" src="/images/uploaded/<%=postingan[i].foto%>">
           </div>
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">more_vert</i></span>
@@ -120,7 +120,7 @@
         <p><%= postingan[i].tentang%></p>
         <div class="card">
           <div class="card-image">
-            <img class="activator" src="/images/uploaded/<%=postingan[i].foto%>">
+            <img class="activator" id="cardpost" src="/images/uploaded/<%=postingan[i].foto%>">
           </div>
           <div class="card-content">
             <span class="card-title activator grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">more_vert</i></span>
@@ -139,9 +139,10 @@
 </div>
   <div class="container">
     <div class="row">
-        <a href="/" class="previous round">1</a>
-        <% for(var i = 0; i <= Math.ceil(postingan.length/4); i++) { %>  
-        <a href="/halaman/<%= i+2 %>" class="previous round"><%= i+2 %></a>
+      <h6>Kunjungi halaman lainnya : </h6>
+        <a href="/" class="previous round"><h6>1</h6></a>
+        <% for(var i = 0; i <= Math.ceil(halaman.length/4)-2; i++) { %>  
+        <a href="/halaman/<%= i+2 %>" class="previous round"><h6><%= i+2 %></h6></a>
         <% } %>
       </div>
     </div>

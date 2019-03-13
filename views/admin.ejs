@@ -16,98 +16,287 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>ADMIN PAGE</title>
 </head>
-<body>
+<body class="blue lighten-4 ">
 
- <section id="artikel" class="Artikel grey lighten-5 scrollspy">
+  <ul class="tabs tabs-fixed-width tab-demo black lighten-1" >
+    <li class="tab"><a class="active" href="#admin1">PERMINTAAN ARTIKEL</a></li>
+    <li class="tab"><a href="#admin2" ">KELOLA ARTIKEL</a></li>
+    <li class="tab"><a href="#admin3">KELOLA AKUN KIM</a></li>
+     <li class="tab"><a href="#admin4">PERMINTAAN PENJUALAN PRODUK DESA</a></li>
+      <li class="tab"><a href="#admin5" ">KELOLA PRODUK DESA</a></li>
+  </ul>
+
+  <section id="admin1" class="Artikel blue lighten-4  scrollspy">
+    <div class="row" >
+      <div class="container" style="border-bottom: 1px solid blue;">
+       <h3 class="center light black-text text-darken-4"><b>PERMINTAAN PENERBITAN ARTIKEL</b></h3>
+       <br>
+       <a href="/">kembali ke home</a>
+     </div>
+   </div>
+   <div class="container">
+     <div>       
+      <% if (req.length != 0) { %>
+      <% for(var i = 0; i < req.length; i++) { %>
+      <% if (i%2 == 0) { %>
+      <div class="row">
+        <div class="col m6">
+          <h4 >Permintaan Penerbitan dari <%= req[i].desa %></h4>
+          <p><%= req[i].tentang%></p>
+          <div class="card">
+            <div class="card-image">
+              <img class="activator" id="cardpost" src="/images/uploaded/<%=req[i].foto%>">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4"><%= req[i].judul %><i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4"><%= req[i].judul %><i class="material-icons right">close</i></span>
+              <p style="text-align: justify;"><%= req[i].postingan%></p>
+            </div>
+          </div>
+          <p>Diposting pada <%= req[i].tanggal.toLocaleDateString()%></p> 
+          <a class="waves-effect waves-light btn-large orange accent-4" href="/accept/<%= req[i].reqid %>"><i class="material-icons right"></i>Terima</a>
+          <a class="waves-effect waves-light btn-large red accent-4" href="/reject/<%= req[i].reqid %>"><i class="material-icons right"></i>Tolak</a>
+        </div>
+        <% } else { %>
+        <div class="col s12 m6">
+          <h4 >Permintaan Penerbitan dari <%= req[i].desa %></h4>
+          <p><%= req[i].tentang%></p>
+          <div class="card">
+            <div class="card-image">
+              <img class="activator" id="cardpost" src="/images/uploaded/<%=req[i].foto%>">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4"><%= req[i].judul %><i class="material-icons right">more_vert</i></span>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4"><%= req[i].judul %><i class="material-icons right">close</i></span>
+              <p style="text-align: justify;"><%= req[i].postingan%></p>
+            </div>
+          </div> 
+          <p>Diposting pada <%= req[i].tanggal.toLocaleDateString()%></p>  
+          <a class="waves-effect waves-light btn-large orange accent-4" href="/accept/<%= req[i].reqid %>"><i class="material-icons right"></i>Terima</a>
+          <a class="waves-effect waves-light btn-large red accent-4" href="/reject/<%= req[i].reqid %>"><i class="material-icons right"></i>Tolak</a>
+        </div>
+      </div>
+      <% } %>
+      <% } %>
+      <% } else { %>
+      <h5 style="color: red; text-align: center;">BELUM ADA PERMINTAAN PENERBITAN ARTIKEL</h5>
+      <% } %>
+    </div> 
+  </div>
+</section>
+
+<!-- ======================================================================================== -->
+
+<section id="admin2" class="Artikel blue lighten-4 scrollspy">
   <div class="row" >
     <div class="container" style="border-bottom: 1px solid blue;">
-     <h3 class="center light black-text text-darken-4"><b>PERMINTAAN PENERBITAN ARTIKEL</b></h3>
+     <h3 class="center light black-text text-darken-4"><b>KELOLA ARTIKEL KIM</b></h3>
      <br>
      <a href="/">kembali ke home</a>
+     <a href="/formpost">hitung artikel desa</a>
    </div>
  </div>
- <div class="container">
+
+ <div class="container" style="border-bottom: 1px solid blue;">
    <div>       
-    <% if (req.length != 0) { %>
-    <% for(var i = 0; i < req.length; i++) { %>
+    <% for(var i = 0; i < postingan.length; i++) { %>
     <% if (i%2 == 0) { %>
     <div class="row">
       <div class="col m6">
-        <h4 >Permintaan Penerbitan dari <%= req[i].desa %></h4>
-        <p><%= req[i].tentang%></p>
+        <h4 >Artikel dari <%= postingan[i].desa %></h4>
+        <p><%= postingan[i].tentang%></p>
         <div class="card">
           <div class="card-image">
-            <img class="activator" src="/images/uploaded/<%=req[i].foto%>">
+            <img class="activator" id="cardpost" src="/images/uploaded/<%=postingan[i].foto%>">
           </div>
           <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"><%= req[i].judul %><i class="material-icons right">more_vert</i></span>
+            <span class="card-title activator grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">more_vert</i></span>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><%= req[i].judul %><i class="material-icons right">close</i></span>
-            <p style="text-align: justify;"><%= req[i].postingan%></p>
+            <span class="card-title grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">close</i></span>
+            <p style="text-align: justify;"><%= postingan[i].postingan%></p>
           </div>
         </div>
-        <p>Diposting pada <%= req[i].tanggal.toLocaleDateString()%></p> 
-        <a class="waves-effect waves-light btn-large orange accent-4" href="/accept/<%= req[i].reqid %>"><i class="material-icons right"></i>Terima</a>
-        <a class="waves-effect waves-light btn-large red accent-4" href="/reject/<%= req[i].reqid %>"><i class="material-icons right"></i>Tolak</a>
+        <p>Diposting pada <%= postingan[i].tanggal.toLocaleDateString()%></p> 
+        <a class="waves-effect waves-light btn-large red accent-4" href="/delete/<%= postingan[i].idArtikel %>"><i class="material-icons right"></i>HAPUS</a>
       </div>
       <% } else { %>
       <div class="col s12 m6">
-        <h4 >Artikel dari <%= req[i].desa %></h4>
-        <p><%= req[i].tentang%></p>
+        <h4 >Artikel dari <%= postingan[i].desa %></h4>
+        <p><%= postingan[i].tentang%></p>
         <div class="card">
           <div class="card-image">
-            <img class="activator" src="/images/uploaded/<%=req[i].foto%>">
+            <img class="activator" id="cardpost" src="/images/uploaded/<%=postingan[i].foto%>">
           </div>
           <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4"><%= req[i].judul %><i class="material-icons right">more_vert</i></span>
+            <span class="card-title activator grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">more_vert</i></span>
           </div>
           <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><%= req[i].judul %><i class="material-icons right">close</i></span>
-            <p style="text-align: justify;"><%= req[i].postingan%></p>
+            <span class="card-title grey-text text-darken-4"><%= postingan[i].judul %><i class="material-icons right">close</i></span>
+            <p style="text-align: justify;"><%= postingan[i].postingan%></p>
           </div>
         </div> 
-        <p>Diposting pada <%= req[i].tanggal.toLocaleDateString()%></p>  
-        <a class="waves-effect waves-light btn-large orange accent-4" href="/accept/<%= req[i].reqid %>"><i class="material-icons right"></i>Terima</a>
-        <a class="waves-effect waves-light btn-large red accent-4" href="/reject/<%= req[i].reqid %>"><i class="material-icons right"></i>Tolak</a>
+        <p>Diposting pada <%= postingan[i].tanggal.toLocaleDateString()%></p>  
+        <a class="waves-effect waves-light btn-large red accent-4" href="/delete/<%= postingan[i].idArtikel %>"><i class="material-icons right"></i>HAPUS</a>
       </div>
     </div>
     <% } %>
     <% } %>
-    <% } else { %>
-    <h5 style="color: red; text-align: center;">BELUM ADA PERMINTAAN POSTINGAN</h5>
-    <% } %>
   </div> 
 </div>
-  
 </section>
 
+<!-- ======================================================================================== -->
 
- <!--JavaScript at end of body for optimized loading-->
-                <script type="text/javascript" src="js/materialize.min.js"></script>
-                <script>
+<section id="admin3" class="Artikel blue lighten-4 scrollspy">
+  <div class="row" >
+    <div class="container" style="border-bottom: 1px solid blue;">
+     <h3 class="center light black-text text-darken-4"><b>AKUN KIM</b></h3>
+     <br>
+     <a href="/">kembali ke home</a>
+   </div>
+ </div>
 
-                  M.AutoInit();
+ <div class="container">
+    <table class="striped">
+      <thead>
+        <tr>
+          <td>NO</td>
+          <td>ID DESA</td>
+          <td>NAMA DESA</td>
+          <td>KECAMATAN</td>
+          <td>EMAIL</td>
+          <td>PASSWORD</td>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (data !=0) { %>
+        <% for(var i = 0; i < data.length; i++) { %>
+        <tr>
+          <td><%= (i+1) %></td>
+          <td><%= data[i].id %></td>
+          <td><%= data[i].namadesa %></td>
+          <td><%= data[i].kecamatan %></td>
+          <td><%= data[i].email %></td>
+          <td><%= data[i].password %></td>
+        </tr>
+        <% } %>
+        <% } else { %>
+        <div></div>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</section>
 
-                  const slider = document.querySelectorAll('.slider');
-                  M.Slider.init(slider, {
-                    indicators:false,
-                    interval:7000,
-                    duration:500, 
-                    height:700 
-                  });
+<!-- ======================================================================================== -->
+
+<section id="admin4" class="Artikel blue lighten-4  scrollspy">
+    <div class="row" >
+      <div class="container" style="border-bottom: 1px solid blue;">
+       <h3 class="center light black-text text-darken-4"><b>PERMINTAAN PENJUALAN PRODUK DESA</b></h3>
+       <br>
+       <a href="/">kembali ke home</a>
+     </div>
+   </div>
+
+   <div class="container"> 
+         <div class="row">    
+      <% if (jual.length != 0) { %>
+      <% for(var i = 0; i < jual.length; i++) { %>
+        <div class="col s12 m3">
+          <div class="card medium">
+            <div class="card-image">
+              <img src="/images/UPLOADED/JUALAN/<%=jual[i].foto%>" class="responsive-img materialboxed">
+            </div>
+            <div class="card-content">
+              <h5 class="card-title"><%=jual[i].namabrg%> </h5>
+              <p><%=jual[i].kategori%></p>
+              <p>Rp. <%=jual[i].hargabrg%> ,-</p>
+              <p> dari <%=jual[i].sumber%></p>
+            </div>
+            <a class="waves-effect waves-light btn-large orange accent-4" href="/acceptjual/<%= jual[i].id %>"><i class="material-icons right"></i>Terima</a>
+          <a class="waves-effect waves-light btn-large red accent-4" href="/rejectjual/<%= jual[i].id %>"><i class="material-icons right"></i>Tolak</a>
+          </div>
+        </div>
+   
+      <% } %>
+      <% } else { %>
+      <h5 style="color: red; text-align: center;">BELUM ADA PERMINTAAN PENJUALAN PRODUK DESA</h5>
+      <% } %>
+         </div>
+    </div> 
+  </div>
+</section>
+
+<!-- ======================================================================================== -->
+
+<section id="admin5" class="Artikel blue lighten-4  scrollspy">
+    <div class="row" >
+      <div class="container" style="border-bottom: 1px solid blue;">
+       <h3 class="center light black-text text-darken-4"><b>KELOLA PRODUK DESA</b></h3>
+       <br>
+       <a href="/">kembali ke home</a>
+     </div>
+   </div>
+
+   <div class="container">
+     <div class="row">
+      <% if (jb.length != 0) { %>
+      <% for(var i = 0; i < jb.length; i++) { %>
+
+        <div class="col s12 m3">
+          <div class="card medium">
+            <div class="card-image">
+              <img src="/images/UPLOADED/JUALAN/<%=jb[i].foto%>" class="responsive-img materialboxed">
+            </div>
+            <div class="card-content">
+              <h5 class="card-title"><%=jb[i].namabrg%> </h5>
+              <p><%=jb[i].kategori%></p>
+              <p>Rp. <%=jb[i].hargabrg%> ,-</p>
+              <p> dari <%=jb[i].sumber%></p>
+            </div>
+            <a class="waves-effect waves-light btn-large orange accent-4" href="/deletejual/<%= jb[i].id %>"><i class="material-icons right"></i>HAPUS</a>
+          </div>
+        </div>
+      <% } %>
+      <% } else { %>
+      <h5 style="color: red; text-align: center;">BELUM ADA PERMINTAAN PENJUALAN PRODUK DESA</h5>
+      <% } %>
+    </div> 
+  </div>
+
+</section>
+
+<!--JavaScript at end of body for optimized loading-->
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+
+  M.AutoInit();
+
+  const slider = document.querySelectorAll('.slider');
+  M.Slider.init(slider, {
+    indicators:false,
+    interval:7000,
+    duration:500, 
+    height:700 
+  });
 
 
-                  const materialbox= document.querySelectorAll('.materialboxed');
-                  M.Materialbox.init(materialbox);
+  const materialbox= document.querySelectorAll('.materialboxed');
+  M.Materialbox.init(materialbox);
 
-                  const scroll = document.querySelectorAll('.scrollspy');
-                  M.ScrollSpy.init(scroll, {
-                    scrollOffset: 50
-                  });
+  const scroll = document.querySelectorAll('.scrollspy');
+  M.ScrollSpy.init(scroll, {
+    scrollOffset: 50
+  });
 
 
 
-                </script>
+</script>
 </body>
 </html>
