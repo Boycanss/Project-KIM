@@ -48,6 +48,20 @@
       </nav>
     </div>
 
+ <li><a class="dropdown-trigger " href="#!" data-target="activity"><i class="material-icons right">notifications</i></a></li>
+          <ul id="activity" class="dropdown-content">
+            <!--  <% if (notif.length != 0) { %> -->
+             <% for(var i = 0; i < notif.length; i++) { %>
+            <li><a href="#!"><%=notif[i].Notif %></a></li>
+           <% } %>
+            <li class="divider"></li>
+            <li><a href="/logout">Logout</a></li>
+            <% else { %>
+            <li><a href="/login">Login</a></li>
+            <% } %>
+            <!-- <% } %> -->
+          </ul>
+
         <div class="row">
       <div class="col m6">
         <h4 ><a href="/baca/<%= postingan[i].idArtikel %>" >Artikel dari <%= postingan[i].desa %></a></h4>

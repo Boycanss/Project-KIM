@@ -1,0 +1,59 @@
+ <div class="navbar-fixed scrollspy" id="navbar">
+ <nav class="indigo">
+ <div class="container">
+ <div class="nav-wrapper">
+ <a href="#navbar" class="brand-logo"><strong>| KIM</strong><i class="fab fa-asymmetrik medium"></i></a>
+ <a href="#navbar" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i> </a> 
+
+ <ul class="right hide-on-med-and-down">
+
+ <li><a href="#artikel">Artikel</a></li>
+ <li><a href="#Kumpulanberita">Kumpulan Berita </a></li>
+ <li><a href="#about">Tentang Kami</a></li>
+ <li><a href="#Jualbeli">Produk Desa</a></li>
+ <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
+ <li> <form action="/cari" method="POST">
+ <li><a href="#cari" class="fa fa-search"></a></li>
+
+ <li> <input type="search" class="fa search-field" name="cari" id="cari" style="color: white"> </li>
+ </form>
+ </li>
+ <li><a class="dropdown-trigger " href="#!" data-target="activity"><i class="material-icons right">notifications</i></a></li>
+ <ol id="activity" class="dropdown-content">
+ <ul><h6 style="border-bottom: 1px solid blue;"><b> Daftar Aktifitas Akun </b></h6></ul>
+ <% if (notif.length > 0) { %>
+ <% for(var y = 0; y < notif.length; y++) { %>
+ <li><%= notif[y].Notif%></li>
+ <ul><li class="divider"></li></ul>
+ <% } %>
+ <ul><li><a href="/logout">Logout</a></li><ul>
+ <% } else { %>
+ <ul><li><a href="/posting">Login terlebih dahulu</a></li><ul>
+ <% } %>
+ </ol>
+ </ul>
+ </div>
+
+ </div>
+
+ </nav>
+
+ </div>
+
+ <!-- disini untuk sidebar -->
+ <ul class="sidenav" id="mobile-nav">
+ <li><div class="user-view">
+ <div class="background">
+ <img src="/images/portfolio/14.png">
+ </div>
+ <a href="#user"><img class="circle" src="/images/portfolio/3.png"></a>
+ <a href="#name"><span class="white-text name">Kelompok Informasi Masyarakat</span></a>
+ <a href="#email"><span class="white-text email">kimwarkop4@gmail.com</span></a>
+ </div></li>
+ <li><a href="#artikel">Artikel</a></li>
+ <li><a href="#Kumpulanberita">Kumpulan Berita </a></li>
+ <li><a href="#about">Tentang Kami</a></li>
+ <li><a href="#Jualbeli">Jual Beli Online</a></li>
+ <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
+ <li><a href="#cari"><i class="material-icons">search</i></a></li>
+ </ul>

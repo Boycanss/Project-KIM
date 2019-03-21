@@ -1,68 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
-
-  <!-- my CSS -->
-  <link rel="stylesheet" href="css/style.css">
-
-  <!-- LINK FONT DARI FONT AWESOME -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Jual Beli</title>
-
+  <% include ./partials/head %>
+<title>Produk Desa</title>
 
 </head>
 
 <body id="home" class="scrollspy">
-
- <!-- Ini untuk navbar -->
- <div class="navbar-fixed scrollspy" id="navbar">
-    <nav class="indigo ">
-      <div class="container">
-        <div class="nav-wrapper">
-          <a href="/" class="brand-logo"><strong>| KIM</strong><i class="fab fa-asymmetrik medium"></i></a>
-          <a href="#navbar" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i> </a> 
-
-          <ul class="right hide-on-med-and-down">
-            
-            <li><a href="/#artikel">Artikel</a></li>
-            <li><a href="/#Kumpulanberita">Kumpulan Berita </a></li>
-            <li><a href="/#about">Tentang Kami</a></li>
-            <li><a href="#Jualbeli">Produk Desa</a></li>
-            <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
-           <li> <form action="/cari" method="POST">
-           <li><a href="#cari" class="fa fa-search"></a></li>
-            <li> <input type="search" class="fa fa-search" name="cari" id="cari" style="color: white"> </li>
-            </form>
-          </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </div>
-
-<ul class="sidenav" id="mobile-nav">
-  <li><div class="user-view">
-    <div class="background">
-      <img src="/images/portfolio/14.png">
-    </div>
-    <a href="#user"><img class="circle" src="/images/portfolio/3.png"></a>
-    <a href="#name"><span class="white-text name">Kelompok Informasi Masyarakat</span></a>
-    <a href="#email"><span class="white-text email">kimwarkop4@gmail.com</span></a>
-  </div></li>
-  <li><a href="#artikel">Artikel</a></li>
-  <li><a href="#Kumpulanberita">Kumpulan Berita </a></li>
-  <li><a href="#about">Tentang Kami</a></li>
-  <li><a href="#Jualbeli">Produk Desa</a></li>
-  <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
-  <li><a href="#cari"><i class="material-icons">search</i></a></li>
-</ul>
+<% include ./partials/headerNN %>
 
 
   <!-- Ini untuk bagian Jual Beli Online -->
@@ -114,37 +59,7 @@
 
           <!-- ini untuk footer -->
           <footer class="page-footer indigo darken-2">
-            <div class="container">
-              <div class="row">
-                <div class="col l6 s12">
-                  <h5 class="white-text">Alamat Kantor</h5> <br>
-                  <p class="grey-text text-lighten-4">Kelompok Informasi Masyarakat <br>Jl. Panglima Sudirman No.507, Pesanggrahan, Kecamatan Batu, <br>Jawa Timur - 65313</p>
-                </div>
-                <div class="col l3 s12">
-                  <h5 class="white-text">Kontak</h5> <br>
-                  <p><i class="fas fa-phone"></i> (0341) 3061892 <br><i class="far fa-envelope"></i>  kimwarkop4@gmail.com</p>
-                </div>
-
-                <div class="col l3 s12">
-                  <h5 class="white-text">Sosial Media</h5> <br>
-                  <ul>
-                    <div class="col s12 m2">
-                      <li><a class="white-text" href="https://www.instagram.com/kim_tulungrejo/"><i class="fab fa-instagram small"></i></a></li></div>
-                      <div class="col s12 m2">
-                        <li><a class="white-text" href="https://www.facebook.com/kimtulungrejo.kwb.1"><i class="fab fa-facebook-square small"></i></a></li></div>
-                        <div class="col s12 m2">
-                          <li><a class="white-text" href="https://twitter.com/KimAnjasmoro"><i class="fab fa-twitter small"></i></a></li></div>
-                          <div class="col s12 m2">
-                            <li><a class="white-text" href="https://plus.google.com/+KIMDesaTulungrejoKotaBatu"><i class="fab fa-google-plus-g small"></i></a></li></div> <br>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="footer-copyright">
-                      <div class="container"><i class="material-icons tiny">copyright</i> 2019. Allright Reserved. Design by TIM PKL.<a class="grey-text text-lighten-4 right" href="https://kim-warkop.blogspot.com/">Blog</a>
-
-                      </div>
-                    </div>
+            <% include ./partials/footer %>
                   </footer>
 
 

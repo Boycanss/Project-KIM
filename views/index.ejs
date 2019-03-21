@@ -1,70 +1,17 @@
 <!DOCTYPE html>
 <html dir="ltr" lang="en-US">
 <head>
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!--Import materialize.css-->
-  <link type="text/css" rel="stylesheet" href="/css/materialize.min.css"  media="screen,projection"/>
-
-  <!-- my CSS -->
-  <link rel="stylesheet" href="/css/style.css">
-
-  <!-- LINK FONT DARI FONT AWESOME -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-
-  <!--Let browser know website is optimized for mobile-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<!--   <script type="text/javascript" src="app.js"></script> -->
-  <title>Kelompok Informasi Masyarakat</title>
+ <% include ./partials/head %>
+ <title>Kelompok Informasi Masyarakat</title>
 </head>
 
 
 <body id="home" class="scrollspy">
 
-  <!-- Ini untuk navbar -->
-  <div class="navbar-fixed scrollspy" id="navbar">
-    <nav class="indigo">
-      <div class="container">
-        <div class="nav-wrapper">
-          <a href="#navbar" class="brand-logo"><strong>| KIM</strong><i class="fab fa-asymmetrik medium"></i></a>
-          <a href="#navbar" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i> </a> 
-
-          <ul class="right hide-on-med-and-down">
-
-            <li><a href="#artikel">Artikel</a></li>
-            <li><a href="#Kumpulanberita">Kumpulan Berita </a></li>
-            <li><a href="#about">Tentang Kami</a></li>
-            <li><a href="#Jualbeli">Produk Desa</a></li>
-            <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
-            <li> <form action="/cari" method="POST">
-              <li><a href="#cari" class="fa fa-search"></a></li>
-              <li> <input type="search" class="fa fa-search" name="cari" id="cari" style="color: white"> </li>
-            </form>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
-
-<!-- disini untuk sidebar -->
-<ul class="sidenav" id="mobile-nav">
-  <li><div class="user-view">
-    <div class="background">
-      <img src="/images/portfolio/14.png">
-    </div>
-    <a href="#user"><img class="circle" src="/images/portfolio/3.png"></a>
-    <a href="#name"><span class="white-text name">Kelompok Informasi Masyarakat</span></a>
-    <a href="#email"><span class="white-text email">kimwarkop4@gmail.com</span></a>
-  </div></li>
-  <li><a href="#artikel">Artikel</a></li>
-  <li><a href="#Kumpulanberita">Kumpulan Berita </a></li>
-  <li><a href="#about">Tentang Kami</a></li>
-  <li><a href="#Jualbeli">Jual Beli Online</a></li>
-  <li><a href="http://agropolitan.tv">Agropolitan TV</a></li>
-  <li><a href="#cari"><i class="material-icons">search</i></a></li>
-</ul>
-
+<!--header-->
+ <% include ./partials/header %>
+ 
+<!--header-->
 
 
 <!-- disini untuk membuat gambar slider (slideshow) -->
@@ -75,14 +22,14 @@
       <div class="container">
         <div class="caption center-align" style="font-family: comic sans-serif; text-shadow: 4px 4px #000000;" >
          <br><br><br> <h1 class="light grey-text text-lighten-3 center-align"><strong><br>K I M</strong></h1>
-          <h3 class="light grey-text text-lighten-3">Kelompok Informasi Masyarakat</h3>
+         <h3 class="light grey-text text-lighten-3">Kelompok Informasi Masyarakat</h3>
 
-        </div>
-      </div>
+       </div>
+     </div>
 
 
-    </li>
-  </ul>
+   </li>
+ </ul>
 </div>
 
 <!-- Disini untuk membuat kumpulan artikel -->
@@ -136,24 +83,25 @@
           </div>
         </div> 
         <p>Diposting pada <%= postingan[i].tanggal.toLocaleDateString()%></p>  
-        </div>  
-      </div>
-    </div>
-    <% } %>
-    <% } %>
-    <% } %>
-  </div> 
-</div>
-  <div class="container">
-    <div class="row">
-      <h6>Kunjungi halaman lainnya : </h6>
-        <a href="/" class="previous round"><h6>1</h6></a>
-        <% for(var i = 0; i <= Math.ceil(halaman.length/4)-2; i++) { %>  
-        <a href="/halaman/<%= i+2 %>" class="previous round"><h6><%= i+2 %></h6></a>
-        <% } %>
-      </div>
+      </div>  
     </div>
   </div>
+  <% } %>
+  <% } %>
+  <% } %>
+</div> 
+</div>
+<div class="container">
+  <div class="row">
+    <h6>Kunjungi halaman lainnya : </h6>
+    <a href="/" class="previous round"><h6>1</h6></a>
+    <% for(var i = 0; i <= Math.ceil(halaman.length/4)-2; i++) { %>  
+    <a href="/halaman/<%= i+2 %>" class="previous round"><h6><%= i+2 %></h6></a>
+    <% } %>
+  </div>
+</div>
+
+</div>
 </section>
 
 <!-- disini untuk membuat tab untuk kumpulan berita -->
@@ -213,22 +161,22 @@
     <%  } %> 
   </p></div>
 
-<div id="test3" class="col s12"><p> <!-- ini untuk kolom kecamatan 3 -->
+  <div id="test3" class="col s12"><p> <!-- ini untuk kolom kecamatan 3 -->
    <% for(var i = 17; i <=23; i++) { %>  
-       <div class="col s12 m3">
-        <div class="card small">
-          <div class="card-image">
-           <img src="images/DESA/<%= i+1 %>.jpg">
-         </div>
-         <div class="card-content">
-           <p><%= akun[i].namadesa%></p>
-         </div>
-         <div class="card-action">
-          <a href="/kunjungi/<%= akun[i].namadesa.split(" ").splice(-1); %>">KUNJUNGI<i class="material-icons right">arrow_forward</i></a>
-        </div>
-      </div> 
+   <div class="col s12 m3">
+    <div class="card small">
+      <div class="card-image">
+       <img src="images/DESA/<%= i+1 %>.jpg">
+     </div>
+     <div class="card-content">
+       <p><%= akun[i].namadesa%></p>
+     </div>
+     <div class="card-action">
+      <a href="/kunjungi/<%= akun[i].namadesa.split(" ").splice(-1); %>">KUNJUNGI<i class="material-icons right">arrow_forward</i></a>
     </div>
-    <%  } %> 
+  </div> 
+</div>
+<%  } %> 
 </p></div>
 </section>
 
@@ -323,41 +271,8 @@
 
       <!-- ini untuk footer -->
       <footer class="page-footer indigo darken-2">
-        <div class="container">
-          <div class="row">
-            <div class="col l6 s12">
-              <h5 class="white-text">Alamat Kantor</h5> <br>
-              <p class="grey-text text-lighten-4">Kelompok Informasi Masyarakat <br>Jl. Panglima Sudirman No.507, Pesanggrahan, Kecamatan Batu, <br>Jawa Timur - 65313</p>
-            </div>
-            <div class="col l3 s12">
-              <h5 class="white-text">Kontak</h5> <br>
-              <p><i class="fas fa-phone"></i> (0341) 3061892 <br><i class="far fa-envelope"></i>  kimwarkop4@gmail.com</p>
-            </div>
-
-            <div class="col l3 s12">
-              <h5 class="white-text">Social Media</h5> <br>
-              <ul>
-                <div class="col s12 m2">
-                  <li><a class="white-text" href="https://www.instagram.com/kim_tulungrejo/"><i class="fab fa-instagram small"></i></a></li></div>
-                  <div class="col s12 m2">
-                    <li><a class="white-text" href="/whatsapp"><i class="fab fa-whatsapp small"></i></a></li></div>
-                    <div class="col s12 m2">
-                      <li><a class="white-text" href="https://www.facebook.com/kimtulungrejo.kwb.1"><i class="fab fa-facebook-square small"></i></a></li></div>
-                      <div class="col s12 m2">
-                        <li><a class="white-text" href="https://twitter.com/KimAnjasmoro"><i class="fab fa-twitter small"></i></a></li></div>
-                        <div class="col s12 m2">
-                          <li><a class="white-text" href="https://plus.google.com/+KIMDesaTulungrejoKotaBatu"><i class="fab fa-google-plus-g small"></i></a></li></div> <br>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="footer-copyright">
-                    <div class="container"><i class="material-icons tiny">copyright</i> 2019. Allright Reserved. Design by <a href="/coba">TIM PKL.</a>
-                      <a class="grey-text text-lighten-4 right" href="/admin">Admin</a>
-
-                    </div>
-                  </div>
-                </footer>
+        <% include ./partials/footer %>
+      </footer>
 
 
                 <!--JavaScript at end of body for optimized loading-->

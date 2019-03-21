@@ -49,18 +49,26 @@ var sess;
 
 //index
 router.get('/', function(req, res) { 
-	var message="";      
-	connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4;SELECT * FROM akundesa; SELECT * FROM informasi', (err, rows, fs) => {
-		console.log(rows[2].length)
-		res.render('index.ejs', {postingan:rows[0], akun:rows[1], message:message, halaman:rows[2]})         
+	sess = req.session;
+		var message="";      
+		connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4;SELECT * FROM akundesa; SELECT * FROM informasi; SELECT * FROM notif WHERE idDesa = ? GROUP BY idNotif DESC LIMIT 10',[sess.iduser], (err, rows, fs) => {
+			console.log(sess.username);
+			console.log(sess.iduser);
+			console.log(rows[3].length)
+		res.render('index.ejs', {postingan:rows[0], akun:rows[1], message:message, halaman:rows[2], notif:rows[3], loggedin:sess.username})         
 	});
 }); 
 
 router.get('/halaman/:num', (req,res)=>{
+	sess = req.session;
 	var number = req.params.num;
 	var page = (number-1)*4;
-	connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4 OFFSET ?;SELECT * FROM akundesa; SELECT * FROM informasi',[page], (err, rows, fs) => {
-		res.render('halaman.ejs', {postingan:rows[0], akun:rows[1], halaman:rows[2]})         
+	connection.query('SELECT * FROM informasi ORDER BY idArtikel Desc LIMIT 4 OFFSET ?;SELECT * FROM akundesa; SELECT * FROM informasi; SELECT * FROM notif WHERE idDesa = ? GROUP BY idNotif DESC LIMIT 10',[page , sess.iduser], (err, rows, fs) => {
+		console.log(sess.username);
+		console.log(sess.iduser);
+		console.log(rows[3].length);
+		console.log(rows[3]);
+		res.render('halaman.ejs', {postingan:rows[0], akun:rows[1], halaman:rows[2], notif:rows[3],  loggedin:sess.username})         
 	});
 })
 
@@ -117,12 +125,16 @@ router.post('/beli', (req,res)=>{
 	if (pembelian == undefined) {
 		res.redirect('/jualbeli')
 	} else {
-	var pesan = "Saya dari "+sess.username +" ingin memesan \n"+ pembelian;
-	console.log(pesan);
+		var pesan = "Saya dari "+sess.username +" ingin memesan \n"+ pembelian;
+		console.log(pesan);
 	// router.get('/:phonenum/:message', (req, res) => {
 		var source = req.header('user-agent');
 		var ua = useragent.parse(source);
 		var phonenum = '+6282160011203';
+		var dt = new Date();
+		var tanggal = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+		var message="melakukan pembelian pada tanggal "+tanggal
+		connection.query("INSERT INTO notif (idDesa, Notif, Tanggal) VALUES ('"+sess.iduser+"','"+message+"','"+tanggal+"')")
 		if (ua.isDesktop) {
 			res.status(308).redirect(`https://web.whatsapp.com/send?phone=+${phonenum}&text=${pesan}`);
 		} else if (ua.isMobile) {
@@ -160,14 +172,28 @@ router.get('/jualbeli',(req,res)=>{
 	}
 })
 
+router.get('/deletepost/:id', (req,res)=>{
+	sess = req.session;
+	const idp = req.params.id;
+	connection.query('DELETE FROM informasi WHERE idArtikel = ?', [idp], (err)=>{
+		if (!err) {
+			var dt = new Date();
+			var tanggal = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+			var message="Menghapus Artikel pada tanggal"+tanggal
+			connection.query("INSERT INTO notif (idDesa, Notif, Tanggal) VALUES ('"+sess.iduser+"','"+message+"','"+tanggal+"')")
+			res.redirect('/');
+		} else { throw err;}
+	})
+})
+
 router.get('/kunjungi/:name', (req,res)=>{
 	var namadesa = req.params.name;
 	console.log(namadesa);
 	connection.query('SELECT * FROM informasi WHERE desa LIKE ?', '%'+[namadesa]+'%', function(err, rows){
 		if (rows.length != 0) {
-		console.log(rows[0].desa)
-		var desa = rows[0].desa;
-		res.render('artikel.ejs', {postingan:rows, nmdesa:desa})
+			console.log(rows[0].desa)
+			var desa = rows[0].desa;
+			res.render('artikel.ejs', {postingan:rows, nmdesa:desa})
 		} else {
 			var message = "BELUM ADA ARTIKEL";
 			res.render('artikel.ejs', {postingan:rows, message:message, nmdesa:namadesa})
@@ -180,7 +206,9 @@ router.get('/kunjungi/:name', (req,res)=>{
 
 //add produk
 router.post('/tambahproduk', jualan);
+
 function jualan(req,res, files){
+	sess =req.session;
 	var form = new formidable.IncomingForm();
 	form.parse(req, function(err, fields, files){
 		var fname = files.filetoupload.name;
@@ -196,12 +224,13 @@ function jualan(req,res, files){
 		console.log("produk : "+produk);
 		console.log("Desa : "+desa);
 		console.log("harga : "+harga);
-		connection.query("INSERT INTO requestjual (namabrg, hargabrg, kategori, foto, sumber) VALUES ('"+produk+"','"+harga+"','"+kategori+"','"+fname+"','"+desa+"')", function(err, fields, files){
+		connection.query("INSERT INTO requestjual (namabrg, hargabrg, kategori, foto, sumber, idDesa) VALUES ('"+produk+"','"+harga+"','"+kategori+"','"+fname+"','"+desa+"','"+sess.iduser+"')", function(err, fields, files){
 			console.log("file sedang diupload.....");
 			fs.rename(oldpath, newpath, function(err){
 				if (err) {throw err;}
 				console.log("file sudah diupload");
-				var message="Produk sudah diminta untuk diupload"
+				var message="Produk sudah diminta untuk diupload pada tanggal "+tanggal 
+				connection.query("INSERT INTO notif (idDesa, Notif, Tanggal) VALUES ('"+sess.iduser+"','"+message+"','"+tanggal+"')")
 				res.redirect('/');
 			})
 		}
@@ -211,6 +240,7 @@ function jualan(req,res, files){
 //edit artikel
 router.post('/ubahartikel', edit);
 function edit(req,res, files){
+	sess =req.session;
 	var form = new formidable.IncomingForm();
 	form.parse(req, function(err, fields, files){
 		var reqid = fields.id;
@@ -234,7 +264,8 @@ function edit(req,res, files){
 			fs.rename(oldpath, newpath, function(err){
 				if (err) {throw err;}
 				console.log("file sudah diubah");
-				var message="POSTINGAN SUDAH DIMINTA UNTUK DITERBITKAN"
+				var message="Artikel sudah diubah pada tanggal "+tanggal;
+				connection.query("INSERT INTO notif (idDesa, Notif, Tanggal) VALUES ('"+sess.iduser+"','"+message+"','"+tanggal+"')")
 				res.redirect('/');
 			})
 		}
@@ -246,6 +277,7 @@ function edit(req,res, files){
 //add artikel
 router.post('/tambahartikel', posting);
 function posting(req,res, files){
+	sess =req.session;
 	var form = new formidable.IncomingForm();
 	form.parse(req, function(err, fields, files){
 		var fname = files.filetoupload.name;
@@ -263,12 +295,13 @@ function posting(req,res, files){
 		console.log("Judul : "+judul);
 		console.log("Desa : "+desa);
 		console.log("Isi : "+artikel);
-		connection.query("INSERT INTO request (desa, judul, tentang, postingan, foto, tanggal) VALUES ('"+desa+"','"+judul+"','"+tentang+"','"+artikel+"','"+fname+"','"+tanggal+"')", function(err, fields, files){
+		connection.query("INSERT INTO request (idDesa, desa, judul, tentang, postingan, foto, tanggal) VALUES ('"+sess.iduser+"','"+desa+"','"+judul+"','"+tentang+"','"+artikel+"','"+fname+"','"+tanggal+"')", function(err, fields, files){
 			console.log("file sedang diupload.....");
 			fs.rename(oldpath, newpath, function(err){
 				if (err) {throw err;}
 				console.log("file sudah diupload");
-				var message="POSTINGAN SUDAH DIMINTA UNTUK DITERBITKAN"
+				var message="Artikel sudah diminta untuk diterbitkan pada tanggal "+tanggal;
+				connection.query("INSERT INTO notif (idDesa, Notif, Tanggal) VALUES ('"+sess.iduser+"','"+message+"','"+tanggal+"')")
 				res.redirect('/');
 			})
 		}
@@ -300,12 +333,14 @@ function loggedin(req,res){
 		}else{
 			if(results.length >0){
 				sess.username = results[0].namadesa;
+				sess.iduser = results[0].id
+				console.log(sess.iduser)
 				if(results[0].password == password){
-					console.log(results[0].namadesa)
-					var message = ""
-					// var desa = results[0].namadesa;
-					console.log(sess.username);
-					// res.render('index.ejs', {greetings: sess.username});
+					// console.log(results[0].namadesa)
+					var dt = new Date();
+					var tanggal = dt.getFullYear() + "/" + (dt.getMonth() + 1) + "/" + dt.getDate();
+					var message = "Login pada tanggal "+tanggal
+					connection.query("INSERT INTO notif (idDesa, Notif, Tanggal) VALUES ('"+sess.iduser+"','"+message+"','"+tanggal+"')")
 					res.redirect('/');
 				}
 				else{
@@ -379,12 +414,11 @@ router.post('/hasilpost',(req,res)=>{
 
 
 router.get('/delete/:id', (req,res)=>{
-	sess = req.session;
 	const idp = req.params.id;
 	connection.query('DELETE FROM informasi WHERE idArtikel = ?', [idp], (err)=>{
 		if (!err) {
-			console.log(">>>> artikel sudah di hapus");
 			res.redirect('/adminhome');
+			console.log("sudah dihapus")
 		} else { throw err;}
 	})
 })
@@ -416,7 +450,7 @@ router.post('/loginAdmin', (req,res)=>{
 router.get('/accept/:reqid', (req,res)=>{
 	var reqid= req.params.reqid;
 	sess = req.session;
-	connection.query("INSERT INTO informasi (desa, judul, tentang, postingan, foto, tanggal) SELECT desa, judul, tentang, postingan, foto, tanggal FROM request WHERE reqid = ?; DELETE FROM request WHERE reqid= ?;", [reqid,reqid], (err, rows)=>{
+	connection.query("INSERT INTO informasi (idDesa, desa, judul, tentang, postingan, foto, tanggal) SELECT idDesa, desa, judul, tentang, postingan, foto, tanggal FROM request WHERE reqid = ?; DELETE FROM request WHERE reqid= ?;", [reqid,reqid], (err, rows)=>{
 		if (err) {throw err} 
 			else {
 				console.log("Postingan sudah diterbitkan")
